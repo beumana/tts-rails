@@ -7,7 +7,7 @@
 
 <p>
   <strong>Author:</strong>
-  <%= @blog_post.author %>
+  <%= @blog_post.user.username %>
 </p>
 
 <p>
@@ -26,12 +26,13 @@
 
 <div class="panel panel-default">
   <div class="panel-header">
-    <h4>Comments</h4>
+    <h2>Comments</h2>
   </div>
   <% @blog_post.comments.each do |comment| %>
-  <div class="panel-body">
-    <p><strong><%= comment.author %></strong> said:</p>
-    <p><%= comment.comment_entry %></p>
+  <div class="panel panel-success">
+    <div class="panel-body">
+      <p><strong><%= comment.user.username %></strong> said:</p>
+      <p><%= comment.comment_entry %></p>
   </div>
   <% end %>
 </div>
