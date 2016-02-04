@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :comments
+  resources :comments
   resources :blog_posts
   root 'blog_posts#index'
   # The priority is based upon order of creation: first created -> highest priority.
@@ -36,8 +38,7 @@ Rails.application.routes.draw do
 
   # Example resource route with more complex sub-resources:
   #   resources :products do
-  #     resources :comments
-  #     resources :sales do
+  #     #     resources :sales do
   #       get 'recent', on: :collection
   #     end
   #   end
