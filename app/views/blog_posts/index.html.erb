@@ -12,8 +12,8 @@
         <%= link_to blog_post.title, blog_post %>
       </div>
       <div class="panel-body">
-        <p>by <%= blog_post.user.username %></p>
-        
+        <p>by <strong>><%= link_to blog_post.user.username, user_posts_path(id: blog_post.user.id) %></strong>
+        <span class="posted-at"><%= blog_post.created_at.strftime('%m/%d/%Y at %l:%M%p') %></span></p>
         <p><%= truncate(blog_post.blog_entry, length:210, seperator: ' ')%>...</p>
         <%= link_to "Read more about #{blog_post.title}", blog_post %>
         
@@ -21,10 +21,12 @@
         <!--<%= link_to 'Read More', blog_post %>-->
         
       </div>
+      <% if current_user.id == blog_post.user.id %>
       <div class="panel-footer">
-      <%= link_to 'Edit', edit_blog_post_path(blog_post), class:"btn btn-default" %>
-      <%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+        <%= link_to 'Edit', edit_blog_post_path(blog_post), class:"btn btn-warning" %>
+        <%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
       </div>
+      <% end %>
     </div>
   </div>
   <% end %>

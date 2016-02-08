@@ -6,8 +6,8 @@
 </p>
 
 <p>
-  <strong>Author:</strong>
-  <%= @blog_post.user.username %>
+  <p>by <strong>><%= link_to @blog_post.user.username, user_posts_path(id: @blog_post.user.id) %></strong>
+  <span class="posted-at"><%= @blog_post.created_at.strftime('%m/%d/%Y at %l:%M%p') %></span></p>
 </p>
 
 <p>
@@ -31,6 +31,8 @@
   <% @blog_post.comments.each do |comment| %>
   <div class="panel panel-success">
     <div class="panel-body">
+      <p>by <strong>><%= link_to comment.user.username, user_posts_path(id: comment.user.id) %></strong>
+      <span class="posted-at"><%= comment.created_at.strftime('%m/%d/%Y at %l:%M%p') %></span></p>
       <p><strong><%= comment.user.username %></strong> said:</p>
       <p><%= comment.comment_entry %></p>
   </div>
@@ -38,5 +40,11 @@
 </div>
 
 
-<%= link_to 'Edit', edit_blog_post_path(@blog_post) %> |
-<%= link_to 'Back', blog_posts_path %>
+<% if current_user.id == @blog_post.user.id %>
+  <div class="panel-footer">
+    <p>
+      <%= link_to 'Edit Post', edit_blog_post_path(@blog_post), class:"btn btn-warning" %>
+      <%= link_to 'Destroy', @blog_post, method: :delet, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+    </p>
+  </div>
+  <% end %>
